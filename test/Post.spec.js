@@ -25,6 +25,24 @@ describe('<Post />', () => {
 		it('should render a button per <Post>', () => {
 			const wrapper = shallow(<Post title='Bar' />);
 			expect(wrapper.find('button').length).to.equal(1);
+		});
+		it('should be unliked to start', () => {
+			const wrapper = shallow(<Post title='Foo' />);
+			expect(wrapper.state().liked).to.equal(false);
+		});
+		it('should toggle state when clicked', () => {
+			const wrapper = shallow(<Post />);
+			wrapper.find('button').simulate('click');
+			expect(wrapper.state().liked).to.equal(true);	
+		})
+		it('should render like initially', () => {
+			const wrapper = shallow(<Post />);
+			expect(wrapper.find('button').text()).to.equal('Like');
+		});
+		it('should render unlike when already liked', () => {
+			const wrapper = shallow(<Post />);
+			wrapper.find('button').simulate('click');
+			expect(wrapper.find('button').text()).to.equal('Unlike');	
 		});	
 	})
 });
